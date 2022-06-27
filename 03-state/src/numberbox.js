@@ -90,4 +90,30 @@ class TickleBox extends React.Component {
     }
 }
 
-export { NumberBox, AlertBox, TickleBox }
+class Dice extends React.Component{
+
+    state = {
+        'count': Math.floor(Math.random() * 6 + 1)
+    }
+
+    click = () => {
+        this.setState({
+            'count': Math.floor(Math.random() * 6 + 1)
+        })
+    }
+
+    render(){
+        return (
+            <div style={
+                {
+                    border: '2px solid green',
+                    color: `${this.state.color}`
+                }
+            } onClick={this.click}>
+                {this.state.count}
+            </div>
+        )
+    }
+}
+
+export { NumberBox, AlertBox, TickleBox, Dice }

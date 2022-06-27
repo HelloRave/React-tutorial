@@ -1,4 +1,4 @@
-import {NumberBox, AlertBox, TickleBox} from './numberbox.js'
+import {NumberBox, AlertBox, TickleBox, Dice} from './numberbox.js'
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
         <AlertBox message='HELLO'/>
         <AlertBox message='BYE'/>
         <TickleBox />
+        <Dice />
     </div>
   );
 }
