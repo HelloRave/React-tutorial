@@ -7,7 +7,8 @@ class ContactForm extends React.Component {
         'last_name': '',
         'enquiry': '',
         'country': '',
-        contact: []
+        contact: [],
+        hasSubmitted: false
     }
 
     updateFormField = (e) => {
@@ -37,6 +38,30 @@ class ContactForm extends React.Component {
         console.log(this.state.country, this.state.enquiry, this.state.first_name, this.state.last_name)
     }
 
+    // Explore validator libraries 
+    validateName = () => {
+        if (this.state.first_name.length < 3) {
+            return "Must have 3 or more characters"
+        } else if (this.state.first_name.length > 20) {
+            return "Must have less than 20 characters"
+        } else {
+            return null
+        }
+    }
+
+    submit = () => {
+
+        this.setState({
+            hasSubmitted: true
+        })
+
+        if(!this.validateName()){
+            alert('All data is ok')
+        } else {
+            alert('Not ok')
+        }
+    }
+
     render() {
 
         return (
@@ -45,6 +70,7 @@ class ContactForm extends React.Component {
                 <div>
                     <label>First Name:</label>
                     <input name='first_name' type='text' value={this.state.first_name} onChange={this.updateFormField} />
+                    {this.validateName() && this.state.hasSubmitted ? <span>{this.validateName()}</span> : ''}
                 </div>
                 <div>
                     <label>Last Name:</label>
@@ -66,11 +92,11 @@ class ContactForm extends React.Component {
                 </div>
                 <div>
                     <label>Contacts: </label>
-                    <input type='checkbox' name='contact' value='email' onChange={this.updateContact}/><label>Email</label>
-                    <input type='checkbox' name='contact' value='phone' onChange={this.updateContact}/><label>Phone</label>
-                    <input type='checkbox' name='contact' value='slow-mail' onChange={this.updateContact}/><label>Slow Mail</label>
+                    <input type='checkbox' name='contact' value='email' checked={this.state.contact.includes('email')} onChange={this.updateContact}/><label>Email</label>
+                    <input type='checkbox' name='contact' value='phone' checked={this.state.contact.includes('phone')} onChange={this.updateContact}/><label>Phone</label>
+                    <input type='checkbox' name='contact' value='slow-mail' checked={this.state.contact.includes('slow-mail')} onChange={this.updateContact}/><label>Slow Mail</label>
                 </div>
-                <button onClick={this.click} disabled={!(this.state.country && this.state.enquiry && this.state.first_name && this.state.last_name)}>Submit</button>
+                <button onClick={this.submit} disabled={!(this.state.country && this.state.enquiry && this.state.first_name && this.state.last_name)}>Submit</button>
             </React.Fragment>
 
         )
