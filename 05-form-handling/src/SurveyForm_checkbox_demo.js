@@ -7,7 +7,7 @@ class ContactForm extends React.Component {
         'last_name': '',
         'enquiry': '',
         'country': '',
-        contact: []
+        fruits: []
     }
 
     updateFormField = (e) => {
@@ -16,21 +16,35 @@ class ContactForm extends React.Component {
         })
     }
 
-    updateContact = (e) => {
-        if (this.state.contact.includes(e.target.value)){
-            let indexToRemove = this.state.contact.indexOf(e.target.value)
-            let cloned = [...this.state.contact.slice(0, indexToRemove), ...this.state.contact.slice(indexToRemove + 1)]
+    updateFruits = (e) => {
+        // Check if value in array 
+        if (this.state.fruits.includes(e.target.value)) {
+            // 1. Clone array 
+            // 2. Remove from the clon
+            // 3. Replace cloned array into state 
 
+            let indexToRemove = this.state.fruits.indexOf(e.target.value);
+            let cloned = [
+                ...this.state.fruits.slice(0, indexToRemove),
+                ...this.state.fruits.slice(indexToRemove+1)
+            ]
             this.setState({
-                [e.target.name]: cloned
+                'fruits':cloned
             })
-        } else {
-            let cloned = [...this.state.contact, e.target.value]
 
+        } else {
+            // 1. Clone original array
+            // 2. Update cloned array
+
+            let cloned = [...this.state.fruits, e.target.value]
+
+            // 3. Set cloned array back into the state
+            
             this.setState({
-                [e.target.name]: cloned
+                fruits: cloned
             })
         }
+
     }
 
     click = () => {
@@ -65,10 +79,11 @@ class ContactForm extends React.Component {
                     </select>
                 </div>
                 <div>
-                    <label>Contacts: </label>
-                    <input type='checkbox' name='contact' value='email' onChange={this.updateContact}/><label>Email</label>
-                    <input type='checkbox' name='contact' value='phone' onChange={this.updateContact}/><label>Phone</label>
-                    <input type='checkbox' name='contact' value='slow-mail' onChange={this.updateContact}/><label>Slow Mail</label>
+                    <label>Fruits: </label>
+                    <input type='checkbox' name='fruits' value='apple' onChange={this.updateFruits}/><label>Apple</label>
+                    <input type='checkbox' name='fruits' value='orange' onChange={this.updateFruits}/><label>Orange</label>
+                    <input type='checkbox' name='fruits' value='pineapple' onChange={this.updateFruits}/><label>Pineapple</label>
+                    <input type='checkbox' name='fruits' value='durian' onChange={this.updateFruits}/><label>Durian</label>
                 </div>
                 <button onClick={this.click} disabled={!(this.state.country && this.state.enquiry && this.state.first_name && this.state.last_name)}>Submit</button>
             </React.Fragment>
