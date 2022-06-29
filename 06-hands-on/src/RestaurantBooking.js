@@ -102,7 +102,7 @@ export default class RestaurantBooking extends React.Component {
                     {this.seatings.map((obj) => {
                         return (
                             <React.Fragment>
-                                <input type='radio' name='seatings' value={obj.value} checked={this.state.seatings === obj.value} onChange={this.updateFormField} />
+                                <input type='radio' key={obj.value} name='seatings' value={obj.value} checked={this.state.seatings === obj.value} onChange={this.updateFormField} />
                                 <label>{obj.display}</label>
                             </React.Fragment>)
 
@@ -114,7 +114,7 @@ export default class RestaurantBooking extends React.Component {
                     <select name='smoking' value={this.state.smoking} onChange={this.updateFormField}>
                         {this.smoking.map((obj) => {
                             return (
-                                <option value={obj.value}>{obj.display}</option>
+                                <option key={obj.value} value={obj.value}>{obj.display}</option>
                             )
                         })}
                     </select>
@@ -125,7 +125,7 @@ export default class RestaurantBooking extends React.Component {
                     {this.appetizer.map((obj) => {
                         return (
                             <React.Fragment>
-                                <input type='checkbox' name='appetizer' value={obj.value} checked={this.state.appetizer.includes(obj.value)} onChange={this.updateAppetizer} />
+                                <input type='checkbox' key={obj.value} name='appetizer' value={obj.value} checked={this.state.appetizer.includes(obj.value)} onChange={this.updateAppetizer} />
                                 <label>{obj.display}</label>
                             </React.Fragment>
                         )
