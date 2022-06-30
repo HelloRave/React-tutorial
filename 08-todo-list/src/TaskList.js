@@ -84,6 +84,7 @@ export default class TaskList extends React.Component {
                             modifiedTaskName: task.description
                         })
                     }}>Edit</button>
+                <button className='btn btn-danger ms-3' onClick={() => {this.deleteTask(task)}}>Delete</button>
             </li>
         )
     }
@@ -115,6 +116,17 @@ export default class TaskList extends React.Component {
             task: cloned,
             taskBeingEdited: null
         })
+    }
+
+    deleteTask = (task) => {
+        let index = this.state.task.findIndex( t => t._id === task._id)
+
+        let cloned = [...this.state.task.slice(0, index), ...this.state.task.slice(index + 1)]
+
+        this.setState({
+            task: cloned
+        })
+
     }
 
     render() {
