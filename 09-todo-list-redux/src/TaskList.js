@@ -85,6 +85,19 @@ export default class TaskList extends React.Component{
         })
     }
 
+    delete = (task) => {
+        const index = this.state.tasks.findIndex(t => t._id === task._id)
+
+        const modified = [
+            ...this.state.tasks.slice(0, index),
+            ...this.state.tasks.slice(index + 1)
+        ]
+
+        this.setState({
+            tasks: modified
+        })
+    }
+
     render(){
         return(
             <React.Fragment>
@@ -96,7 +109,7 @@ export default class TaskList extends React.Component{
                         return(
                             <React.Fragment key={task._id}>
                                 <Task task={task} updateTaskDone={this.updateTaskDone}
-                                      beginEdit={this.beginEdit}/>
+                                      beginEdit={this.beginEdit} delete={this.delete}/>
                             </React.Fragment>
                         )
                     } else {
