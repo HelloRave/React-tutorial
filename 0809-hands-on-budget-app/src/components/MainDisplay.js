@@ -2,6 +2,7 @@ import React from 'react'
 import AddExpense from './AddExpense'
 import Delete from './Delete'
 import Expense from './Expense'
+import Update from './Update'
 
 export default class MainDisplay extends React.Component {
 
@@ -125,65 +126,30 @@ export default class MainDisplay extends React.Component {
             )
         } else if (expense._id === this.state.toUpdate._id) {
             return (
-                <div className='card'>
-                    <div className='card-body'>
+                <Update key={expense._id}
+                        updatedDescription={this.state.updatedDescription}
+                        updatedDate={this.state.updatedDate}
+                        updatedCategory={this.state.updatedCategory}
+                        updatedAmount={this.state.updatedAmount}
+                        updateReconciled={this.state.updateReconciled}
+                        updateFormField={this.updateFormField}
+                        updateAmount={(event) => {
+                            this.setState({
+                                updatedAmount: Number(event.target.value)
+                            })
+                        }}
+                        changeUpdateReconciled={() => {
+                            this.setState({
+                                updateReconciled: !this.state.updateReconciled
+                            })
+                        }}
+                        confirmUpdate={this.confirmUpdate}
+                        cancelUpdate={() => {
+                            this.setState({
+                                toUpdate: {}
+                            })
+                        }}/>
 
-                        <div className='my-2'>
-                            <label>Description: </label>
-                            <input type='text' name='updatedDescription' value={this.state.updatedDescription}
-                                onChange={this.updateFormField} />
-                        </div>
-
-                        <div className='my-2'>
-                            <label>Date: </label>
-                            <input type='text' name='updatedDate' value={this.state.updatedDate} onChange={this.updateFormField} />
-                        </div>
-
-                        <div className='my-2'>
-                            <label>Category of Expense: </label>
-                            <select name='updatedCategory' value={this.state.updatedCategory} onChange={this.updateFormField}>
-                                <option value='transport'>Transport</option>
-                                <option value='entertainment'>Entertainment</option>
-                                <option value='food'>Food</option>
-                                <option value='bills'>Bills</option>
-                                <option value='loans'>Loans</option>
-                                <option value='others'>Others</option>
-                            </select>
-                        </div>
-
-
-                        <div className='my-2'>
-                            <label>Amount: </label>
-                            <input type='number' name='updatedAmount' value={this.state.updatedAmount}
-                                onChange={(event) => {
-                                    this.setState({
-                                        updatedAmount: Number(event.target.value)
-                                    })
-                                }} />
-                        </div>
-
-                        <label>Reconciled: </label>
-                        <input type='checkbox' className='form-check-input mx-2'
-                               checked={this.state.updateReconciled}
-                               onChange={() => {
-                                this.setState({
-                                    updateReconciled: !this.state.updateReconciled
-                                })
-                               }}/><label className='form-check-label'>Yes</label>
-
-                        <div className='mt-2'>
-                            <button className='btn btn-danger btn-sm mx-2'
-                                    onClick={this.confirmUpdate}
-                            >Confirm</button>
-                            <button className='btn btn-primary btn-sm'
-                                onClick={() => {
-                                    this.setState({
-                                        toUpdate: {}
-                                    })
-                                }}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
             )
         }
         else {
@@ -216,6 +182,9 @@ export default class MainDisplay extends React.Component {
     render() {
         return (
             <React.Fragment>
+
+                
+
                 {this.state.expenses.map((expense) => {
                     return (
                         this.displayOrUpdateOrDelete(expense)
